@@ -1,8 +1,9 @@
 from yahoo_finance import Share
 from query_parser import *
 import re
+import pandas as pd
 
-search_string = 'dividend AAPL?'
+search_string = 'earnings poop share AAPL?'
 
 #print(search_for_symbol(search_string))
 
@@ -62,6 +63,8 @@ def what_info(string):
         results.append('Dividend Yield: ' + dividend_yield(string))
         results.append('Dividend Share: ' + dividend_share(string))
 
+    if re.search('earnings.*share', search_string.lower()):
+        results.append('Earnings Share: ' + earnings_share(string))
 
     if string.split()[0] == 'history':
         return historical_data(string)
@@ -73,4 +76,3 @@ def key_words(string):
     return word_list
 
 print(what_info(search_string))
-#print(historical_data(search_string))
