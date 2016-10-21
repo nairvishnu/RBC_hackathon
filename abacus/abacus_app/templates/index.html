@@ -4,17 +4,15 @@
 <style>
     #logo {
         position: absolute;
-        top: 40%;
+        top: 30%;
         left: 50%;
         transform: translate(-50%, -50%);
+        float:left;
     }
 
-    #sbox {
-
-    }
 
     input[type=text] {
-        width: 130px;
+        width: 80%;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 4px;
@@ -23,32 +21,50 @@
         background-position: 10px 10px;
         background-repeat: no-repeat;
         padding: 12px 20px 12px 40px;
-        -webkit-transition: width 0.4s ease-in-out;
-        transition: width 0.4s ease-in-out;
+        /*-webkit-transition: width 0.4s ease-in-out;*/
+        /*transition: width 0.4s ease-in-out;*/
     }
 
-    input[type=text]:focus {
-        width: 100%;
+    #submission {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        border-radius: 4px;
     }
+
 </style>
 </head>
 <body style='background-color: #FFFFFF'>
 
-    <div id="logo">
-        <center>
-        <img src="static/logo.png" width="85%" height="85%"/>
-        </center>
-    </div>
+    <div id="wrapper">
+        <div id="logo">
+            <center>
+            <img src="static/logo.png" width="65%" height="65%"  style="padding-left: 50px; padding-bottom: -50px"/>
+            <div>
+             <form method="GET" action= "{{ url_for('test')  }}">
+              <input type="text" name="search" placeholder="Search..">
+              <!--<br />-->
+              <input id="submission" type="submit" value="submit" />
+            </form>
+             </div>
+            </center>
+             <div style="margin-top:20px; text-align:center; font-size:1.5em;">
 
-    <div id="sbox">
-        <form method="GET" action= "{{ url_for('test')  }}">
-          <input type="text" name="search" placeholder="Search..">
-          <br />
-          <input type="submit" value="submit" />
-        </form>
+                 {% for data in msg[0] %}
+                 <div><label>{{data}}</label></div>
+                 {% endfor %}
+             </div>
+        </div>
+
      </div>
 
-    {{msg}}
+
+
 <!--    <div>
 {#    <label> Yesterday's price: {{msg.ycp}}</label>#}
 {#</div>#}
