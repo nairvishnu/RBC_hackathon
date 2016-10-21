@@ -4,10 +4,9 @@ import re
 import pandas as pd
 
 df = pd.read_csv('other_info.csv')
-search_string = 'NYSE price?'
+search_string = 'yesterdays closing price AMZN'
 exchanges = ['NYSE', 'NASDAQ', 'LSE', 'Japan SE', 'Shanghai SE', 'Hong Kong SE', 'Euronext', 'Shenzen SE', 'TMX Group', 'Deutsche Borse']
 
-#print(search_for_symbol(search_string))
 
 def price_return(string):
     symbol = search_for_symbol(string)
@@ -77,13 +76,13 @@ def what_info(string):
             if re.search('head-quarter.', search_string.lower()):
                 x = df[df['Exchange'] == exchange]['Head-Quarters'].as_matrix()[0]
                 results.append(x)
-            if re.search('marker.* cap', search_string.lower()):
+            if re.search('markert.* cap', search_string.lower()):
                 x = df[df['Exchange'] == exchange]['Market Cap'].as_matrix()[0]
                 results.append(x)
-            if re.search('open.', search_string.lower()):
+            if re.search('open.|opening', search_string.lower()):
                 x = df[df['Exchange'] == exchange]['Open'].as_matrix()[0]
                 results.append(x)
-            if re.search('close', search_string.lower()):
+            if re.search('close|closing', search_string.lower()):
                 x = df[df['Exchange'] == exchange]['Close'].as_matrix()[0]
                 results.append(x)
 
@@ -91,7 +90,6 @@ def what_info(string):
     if string.split()[0] == 'history':
         return historical_data(string)
     return results
-
 
 
 print(what_info(search_string))
