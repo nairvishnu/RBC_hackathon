@@ -4,7 +4,8 @@ import re
 import pandas as pd
 
 df = pd.read_csv('other_info.csv')
-search_string = 'What time does the NYSE stop accepting MOC orders?'
+search_string = 'NYSE price?'
+exchanges = ['NYSE', 'NASDAQ', 'LSE', 'Japan SE', 'Shanghai SE', 'Hong Kong SE', 'Euronext', 'Shenzen SE', 'TMX Group', 'Deutsche Borse']
 
 #print(search_for_symbol(search_string))
 
@@ -68,7 +69,24 @@ def what_info(string):
         results.append('Earnings Share: ' + earnings_share(string))
 
     if re.search('time.*NYSE.*MOC', search_string):
-        results.append('MOC Orders Stop At: ' + df['MOC'])
+        x = df[df['Exchange'] == 'NYSE']['MOC'].as_matrix()[0]
+        results.append('Stop Accepting MOC At: ' + x)
+
+    for exchange in exchanges:
+        if re.search(exchange, search_string):
+            if re.search('head-quarter.', search_string.lower()):
+                x = df[df['Exchange'] == exchange]['Head-Quarters'].as_matrix()[0]
+                results.append(x)
+            if re.search('marker.* cap', search_string.lower()):
+                x = df[df['Exchange'] == exchange]['Market Cap'].as_matrix()[0]
+                results.append(x)
+            if re.search('open.', search_string.lower()):
+                x = df[df['Exchange'] == exchange]['Open'].as_matrix()[0]
+                results.append(x)
+            if re.search('close', search_string.lower()):
+                x = df[df['Exchange'] == exchange]['Close'].as_matrix()[0]
+                results.append(x)
+
 
     if string.split()[0] == 'history':
         return historical_data(string)
