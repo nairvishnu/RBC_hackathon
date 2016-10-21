@@ -5,13 +5,13 @@ from . import query_info
 
 @app.route('/')
 def index():
-    all_args = request.args.to_dict()
-    try:
-        search_string = all_args['search']
-        print(search_string)
-        return render_template('index.html', title="Home", search_param=search_string)
-    except KeyError:
-        return render_template('index.html', title="Home")
+    search_string = request.args.get('search')
+    if search_string is None:
+        return render_template('index.html', title="Abacus", msg=None)
+    else:
+        res = query_info.what_info(search_string)
+        return render_template('index.html', title="Abacus: " + search_string, msg=res)
+
 
 @app.route('/static/<path:path>')
 def send_static(path):
