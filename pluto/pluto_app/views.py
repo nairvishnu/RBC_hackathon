@@ -11,5 +11,3 @@ def index():
         return render_template('index.html', title="Home", search_param=search_string)
     except KeyError:
         return render_template('index.html', title="Home")
-
-
