@@ -8,45 +8,54 @@
         border: 2px solid #ccc;
         border-radius: 4px;
         font-size: 16px;
-        background-color: white;
-        background-position: 10px 10px;
+        background-color: transparent;
         background-repeat: no-repeat;
         padding: 12px 20px 12px 40px;
         -webkit-transition: width 0.4s ease-in-out;
         transition: width 0.4s ease-in-out;
     }
     h1 {
-        text-size: 40px;
-        font-family: "Times New Roman", sans-serif;
+
         text-align: center;
 
-        color : white;
+
     }
     body {
         background-image : url("{{url_for('static', filename='building.png')}}");
         background-repeat : no-repeat;
-        background-attachment: fixed;
+        background-attachment: local;
         background-size: 100%;
         background-color: transparent;
     }
     input[type=text]:focus {
         width: 60%;
     }
+    img {
+        display:block;
+        margin:auto;
+        border:none;
+    }
+    button {
+        height : 45px;
+        width : 60px;
+    }
+
 </style>
 </head>
 
 <body>
-
-<h1 >Abacus</h1>
+<img src = "{{url_for('static', filename='abacus.png')}}" width = 200 height = 100>
 <div id="mystruct">
     <form>
       <input type="text" name="search" id="searchbar" placeholder="Search the database..">
-        <button type = "submit"><img src = "{{url_for('static', filename='Search-icon.png')}}" width ="25" height = "25"></button>
+        <button>Search</button>
     </form>
-    </div>
-
+</div>
     {% if search_param %}
-        <p>Searched string : {{ search_param }}  </p>
+    <p>The query you entered was : {{search_param}}</p>
+    {% for i in mytest %}
+    <div><p>{{ i }}</p></div>
+    {% endfor %}
     {% endif %}
 </body>
 
