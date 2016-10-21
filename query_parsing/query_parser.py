@@ -1,9 +1,7 @@
 from yahoo_finance import Share
 
-example_string = 'How much was traded in AAPL?'
 
 def stripper(string): #Function to strip punctuation from string
-
     return string.replace(',',''
                 ).replace('.',''
                 ).replace('?',''
