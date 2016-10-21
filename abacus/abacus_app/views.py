@@ -13,6 +13,9 @@ def index():
     except KeyError:
         return render_template('index.html', title="Home")
 
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
 
 @app.route('/test', methods=['GET'])
 def test():
