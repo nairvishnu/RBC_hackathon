@@ -3,7 +3,7 @@
 <head>
 <style>
     input[type=text] {
-        width: 250px;
+        width: 300px;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 4px;
@@ -19,32 +19,34 @@
         text-size: 40px;
         font-family: "Times New Roman", sans-serif;
         text-align: center;
+        color : white;
     }
     body {
-        background-image: url("");
+        background-image : url("{{url_for('static', filename='building.png')}}");
+        background-repeat : no-repeat;
+        background-attachment: fixed;
         background-size: 100%;
         background-color: transparent;
     }
 
-    form {
-        display : inline-block;
-    }
     input[type=text]:focus {
-        width: 100%;
+        width: 60%;
     }
 </style>
 </head>
 
 <body>
 
-<h1 >Plutus</h1>
+<h1 >Abacus</h1>
+<div id="mystruct">
     <form>
       <input type="text" name="search" id="searchbar" placeholder="Search the database..">
-       <p> <button type = "submit" name="searchbutton"  id="searchbutton"><img src = "http://icons.veryicon.com/png/System/Black%20Glossy/Search.png" width ="25" height = "25"></button></p>
+        <button type = "submit"><img src = "{{url_for('static', filename='Search-icon.png')}}" width ="25" height = "25"></button>
     </form>
+    </div>
 
     {% if search_param %}
-        <p>Searched string : {{ search_param }} </p>
+        <p>Searched string : {{ search_param }}  </p>
 
     {% endif %}
 </body>
