@@ -39,5 +39,8 @@ def what_info(string):
 def key_words(string):
     word_list = splitter(stripper(string))
     return word_list
+the_info_list = [item for sublist in what_info(search_string) for item in sublist]
+for i in the_info_list:
+    print i
 
-print(what_info(search_string))
+
