@@ -1,4 +1,0 @@
-from django.shortcuts import render
-
-def index(request):
-    return render(request, 'example/index.html', {'msg': 'Hello From Django!'})
