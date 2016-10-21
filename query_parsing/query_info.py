@@ -3,7 +3,8 @@ from query_parser import *
 import re
 import pandas as pd
 
-search_string = 'earnings poop share AAPL?'
+df = pd.read_csv('other_info.csv')
+search_string = 'What time does the NYSE stop accepting MOC orders?'
 
 #print(search_for_symbol(search_string))
 
@@ -65,6 +66,9 @@ def what_info(string):
 
     if re.search('earnings.*share', search_string.lower()):
         results.append('Earnings Share: ' + earnings_share(string))
+
+    if re.search('time.*NYSE.*MOC', search_string):
+        results.append('MOC Orders Stop At: ' + df['MOC'])
 
     if string.split()[0] == 'history':
         return historical_data(string)
