@@ -3,32 +3,48 @@
 <head>
 <style>
     input[type=text] {
-        width: 130px;
+        width: 250px;
         box-sizing: border-box;
         border: 2px solid #ccc;
         border-radius: 4px;
         font-size: 16px;
         background-color: white;
-        background-image: url('searchicon.png');
         background-position: 10px 10px;
         background-repeat: no-repeat;
         padding: 12px 20px 12px 40px;
         -webkit-transition: width 0.4s ease-in-out;
         transition: width 0.4s ease-in-out;
     }
-
+    h1 {
+        text-size: 40px;
+        font-family: "Times New Roman", sans-serif;
+        text-align: center;
+    }
+    body {
+        background-image: url("");
+        background-size: 100%;
+        background-color: transparent;
+    }
+    form {
+        display : inline-block;
+    }
     input[type=text]:focus {
         width: 100%;
     }
 </style>
 </head>
+
 <body>
+
+<h1 >Plutus</h1>
     <form>
-      <input type="text" name="search" placeholder="Search..">
+      <input type="text" name="search" id="searchbar" placeholder="Search the database...">
     </form>
+
     {% if search_param %}
-        <p>Searched string is: {{ search_param }}</p>
+        <p>Searched string : {{ search_param }} </p>
     {% endif %}
 </body>
+
 
 </html>
