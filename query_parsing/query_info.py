@@ -71,8 +71,5 @@ def what_info(string):
     return results
 
 
-def key_words(string):
-    word_list = splitter(stripper(string))
-    return word_list
 
 print(what_info(search_string))
