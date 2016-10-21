@@ -3,7 +3,10 @@
 ### Example user template
 
 # IntelliJ project files
-.idea
+.idea/
 *.iml
 out
 gen
+
+*.pyc
+pluto/pluto_app/__pycache__
