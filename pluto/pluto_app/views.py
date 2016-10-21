@@ -8,6 +8,7 @@ def index():
         search_string = all_args['search']
         if search_string == "":
             return render_template('index.html', title="Home")
-        return render_template('index.html', title="Home", search_param=search_string)
+        else:
+            return render_template('index.html', title="Home", search_param=search_string)
     except KeyError:
         return render_template('index.html', title="Home")
