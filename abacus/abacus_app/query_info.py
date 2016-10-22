@@ -1,5 +1,4 @@
 from yahoo_finance import Share
-#from query_parser import *
 import re
 import pandas as pd
 
@@ -28,10 +27,13 @@ def search_for_symbol(string):
             stock_symbol = word
             return stock_symbol
 
-
 def price_return(string):
     symbol = search_for_symbol(string)
     return Share(symbol).get_price()
+
+def volume_return(string):
+    symbol = search_for_symbol(string)
+    return Share(symbol).get_volume()
 
 def previous_closing_price(string):
     symbol = search_for_symbol(string)
@@ -62,11 +64,19 @@ def earnings_share(string):
 
 def what_info(string):
     results = []
-    if re.search('(closing.* price)|(yesterday.*price)|(yesterday)', string.lower()):
+
+    if re.search('time.*NYSE.*MOC', string):
+        x = df[df['Exchange'] == 'NYSE']['MOC'].as_matrix()[0]
+        results.append('Stop Accepting MOC At: 16:00')
+
+    elif re.search('(yesterday.*price)|(yesterday)', string.lower()):
         results.append('Yesterday\'s Closing Price: ' + previous_closing_price(string))
 
-    elif re.search('how.*much|price', string.lower()):
+    elif re.search('how.*much.*sold|selling.*price|price|sold', string.lower()):
         results.append('Price: ' + price_return(string))
+
+    elif re.search('how.*much.*traded.*in|volume', string.lower()):
+        results.append('Volume: ' + volume_return(string))
 
     elif stripper(string).isupper():
         symbol = search_for_symbol(string)
@@ -97,6 +107,9 @@ def what_info(string):
     if re.search('market.*cap', string.lower()):
         results.append('Market Cap: ' + market_cap(string))
 
+    elif re.search('tickers', string.lower()):
+        results.append('Amount of Tickers: 2800')
+
     elif re.search('dividend', string.lower()):
         results.append('Dividend Yield: ' + dividend_yield(string))
         results.append('Dividend Share: ' + dividend_share(string))
@@ -104,10 +117,9 @@ def what_info(string):
     elif re.search('earnings.*share', string.lower()):
         results.append('Earnings Share: ' + earnings_share(string))
 
-    elif re.search('time.*NYSE.*MOC', string):
-        x = df[df['Exchange'] == 'NYSE']['MOC'].as_matrix()[0]
-        results.append('Stop Accepting MOC At: ' + x)
 
-    if string.split()[0] == 'history':
+
+    elif string.split()[0] == 'history':
         return historical_data(string)
+
     return results
